@@ -1,1 +1,1 @@
-# mutation-simulator
+# DNA Mutation Simulator

@@ -58,33 +58,63 @@ def seqtoinsert(seq1: str, seq2: str) -> bool:
     """
 
     i = 0
-    while i < len(seq1) and seq1[i] == seq2[i]:
+    while i < len(seq1) and i < len(seq2) and seq1[i] == seq2[i]:
         i += 1
 
-    # Check for any insertion that is not at the end of seq1.
-    if i != len(seq1):
+    # Check for any insertion that is in the MIDDLE of seq1.
+    if i != len(seq1) and len(seq2) > len(seq1):
         result = 0
         for pos in range(i, len(seq1)):
             if seq1[pos] == seq2[pos + 1]:
                 result += 1
         return result == len(seq2) - (i + 1) and len(seq2) == len(seq1) + 1
     
-    # Check for insertion that is at the end of seq1.
+    # Check for insertion that is at the END of seq1.
     else:
-        return i == len(seq1) and len(seq2) == len(seq1) + 1
+        return len(seq2) == len(seq1) + 1 and i == len(seq1)
 
 
 def seqtodel(seq1: str, seq2: str) -> bool:
-    """Return True if seq2 has a single nucleotide deletion mutation of seq1."""
-    return len(seq2) == len(seq1) - 1
+    """Return True if seq2 has a single nucleotide deletion mutation of seq1.
+    
+    >>> seqtodel('ATTGC', 'ATTC')
+    True
+    >>> seqtodel('ATTGA', 'GTTC')
+    False
+    """
+
+    i = 0
+    while i < len(seq2) and i < len(seq1) and seq1[i] == seq2[i]:
+        i += 1
+    
+    # Check for any deletions that is in the MIDDLE of seq1.
+    if i != len(seq2) and len(seq1) > len(seq2):
+        result = 0
+        for pos in range(i, len(seq2)):
+            if seq2[pos] == seq1[pos + 1]:
+                result += 1
+        return result == len(seq1) - (i + 1) and len(seq2) == len(seq1) - 1
+    
+    # Check for deletion that is at the END of seq1.
+    else:
+        return len(seq2) == len(seq1) - 1 and i == len(seq2)
 
 
 def seqtosub(seq1: str, seq2: str) -> bool:
-    """Return True if seq2 has a single mucleotide substitution mutation of seq1."""
-    for i in range(len(seq1)):
-        if seq1[i] != seq2[i]:
-            return True
-    return False
+    """Return True if seq2 has a single mucleotide substitution mutation of seq1.
+    
+    >>> seqtosub('ATTGC', 'ATCGC')
+    True
+    >>> seqtosub('GCTCC', 'GCTCC')
+    False
+    """
+
+    result = 0
+    if len(seq1) == len(seq2):
+        for i in range(len(seq1)):
+            if seq1[i] != seq2[i]:
+                result += 1
+    return result == 1
 
 
 if __name__ == '__main__':

@@ -83,22 +83,21 @@ def seqtodel(seq1: str, seq2: str) -> bool:
     False
     """
 
+    if len(seq1) != len(seq2) + 1:
+        return False
+
     i = 0
     while i < len(seq2) and i < len(seq1) and seq1[i] == seq2[i]:
         i += 1
     
-    # Check for any deletions that is in the MIDDLE of seq1.
-    if i != len(seq2) and len(seq1) > len(seq2):
-        result = 0
-        for pos in range(i, len(seq2)):
-            if seq2[pos] == seq1[pos + 1]:
-                result += 1
-        return result == len(seq1) - (i + 1) and len(seq2) == len(seq1) - 1
-    
-    # Check for deletion that is at the END of seq1.
-    else:
-        return len(seq2) == len(seq1) - 1 and i == len(seq2)
+    # Check that the sequence after the deletion mutation is the same.
+    for pos in range(i, len(seq2)):
+        if seq2[pos] != seq1[pos + 1]:
+            return False
+    return True
 
+
+# TODO: make them return indexes and if it returns -1, new boolean function says False. Change insertion with seqtodel but with parameters swapped.
 
 def seqtosub(seq1: str, seq2: str) -> bool:
     """Return True if seq2 has a single mucleotide substitution mutation of seq1.

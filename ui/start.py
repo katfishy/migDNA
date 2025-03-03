@@ -49,6 +49,7 @@ class StartPage(tk.Frame):
         """Helper function to create buttons with hover effects."""
         button = tk.Button(
             self,
+            bg="white",
             image=self.button_images[name],
             borderwidth=0,
             highlightthickness=0,

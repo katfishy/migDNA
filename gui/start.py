@@ -41,6 +41,6 @@ class StartPage(tk.Frame):
         }
 
         # Create buttons
-        master.create_button(self, "mutate", 18, 346, master.switch_frame, Mutate)
-        master.create_button(self, "identify", 182, 346, master.switch_frame, Identify)
-        master.create_button(self, "generate", 346, 346, master.switch_frame, Generate)
+        master.create_button(self, "mutate", 136, 137, 18, 346, master.switch_frame, Mutate)
+        master.create_button(self, "identify", 136, 137, 182, 346, master.switch_frame, Identify)
+        master.create_button(self, "generate", 136, 137, 346, 346, master.switch_frame, Generate)

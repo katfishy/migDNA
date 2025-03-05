@@ -19,7 +19,7 @@ class MutationSim(tk.Tk):
         self._frame = new_frame
         self._frame.pack(fill="both", expand=True)
 
-    def create_button(self, parent, name, x, y, command, target_frame):
+    def create_button(self, parent, name, width, height, x, y, command, target_frame=None):
         """Helper function to create buttons with hover effects."""
         button = tk.Button(
             parent,
@@ -27,10 +27,10 @@ class MutationSim(tk.Tk):
             image=self.button_images[name],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: command(target_frame),
+            command=(lambda: command(target_frame)) if target_frame else command,
             relief="flat"
         )
-        button.place(x=x, y=y, width=136, height=137)
+        button.place(x=x, y=y, width=width, height=height)
 
         # Add hover effects
         button.bind('<Enter>', lambda e: button.config(image=self.button_images[f"{name}_hover"]))

@@ -1,7 +1,7 @@
 import tkinter as tk
-from ui.mutate import Mutate
-from ui.identify import Identify 
-from ui.generate import Generate
+from gui.mutate import Mutate
+from gui.identify import Identify 
+from gui.generate import Generate
 
 class StartPage(tk.Frame):
     def __init__(self, master):
@@ -23,7 +23,7 @@ class StartPage(tk.Frame):
             anchor="nw",
             text="migDNA",
             fill="#0B2F59",
-            font=("Inter Bold", 48 * -1)
+            font=("Inter", 48 * -1, 'bold')
         )
 
         # Adding the DNA Image
@@ -31,7 +31,7 @@ class StartPage(tk.Frame):
         self.canvas.create_image(250.0, 169.0, image=self.image_1)
 
         # Load button images (normal and hover states)
-        self.button_images = {
+        master.button_images = {
             "mutate": tk.PhotoImage(file="./assets/button_1.png"),
             "mutate_hover": tk.PhotoImage(file="./assets/button_hover_1.png"),
             "identify": tk.PhotoImage(file="./assets/button_2.png"),
@@ -41,23 +41,6 @@ class StartPage(tk.Frame):
         }
 
         # Create buttons
-        self.create_button("mutate", 18, 346, master.switch_frame, Mutate)
-        self.create_button("identify", 182, 346, master.switch_frame, Identify)
-        self.create_button("generate", 346, 346, master.switch_frame, Generate)
-
-    def create_button(self, name, x, y, command, target_frame):
-        """Helper function to create buttons with hover effects."""
-        button = tk.Button(
-            self,
-            bg="white",
-            image=self.button_images[name],
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: command(target_frame),
-            relief="flat"
-        )
-        button.place(x=x, y=y, width=136, height=137)
-
-        # Add hover effects
-        button.bind('<Enter>', lambda e: button.config(image=self.button_images[f"{name}_hover"]))
-        button.bind('<Leave>', lambda e: button.config(image=self.button_images[name]))
+        master.create_button(self, "mutate", 18, 346, master.switch_frame, Mutate)
+        master.create_button(self, "identify", 182, 346, master.switch_frame, Identify)
+        master.create_button(self, "generate", 346, 346, master.switch_frame, Generate)

@@ -1,4 +1,4 @@
-from ui import MutationSim
+from gui import MutationSim
 
 if __name__ == '__main__':
     app = MutationSim()

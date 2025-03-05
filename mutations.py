@@ -49,7 +49,8 @@ def substitution(seq: str, position: int, nucleotide: str) -> str:
 
 
 def seqtoinsert(seq1: str, seq2: str) -> bool:
-    """Return True if seq2 has a single nucleotide insertion mutation of seq1.
+    """Return the position of seq2, where there is a insertion mutation of seq1.
+    If there is no insertion mutation, return -1.
     
     >>> seqtoinsert('AATGC', 'AATGTC')
     True
@@ -83,21 +84,8 @@ def seqtodel(seq1: str, seq2: str) -> bool:
     False
     """
 
-    if len(seq1) != len(seq2) + 1:
-        return False
+    return seqtoinsert(seq2, seq1)
 
-    i = 0
-    while i < len(seq2) and i < len(seq1) and seq1[i] == seq2[i]:
-        i += 1
-    
-    # Check that the sequence after the deletion mutation is the same.
-    for pos in range(i, len(seq2)):
-        if seq2[pos] != seq1[pos + 1]:
-            return False
-    return True
-
-
-# TODO: make them return indexes and if it returns -1, new boolean function says False. Change insertion with seqtodel but with parameters swapped.
 
 def seqtosub(seq1: str, seq2: str) -> bool:
     """Return True if seq2 has a single mucleotide substitution mutation of seq1.
@@ -114,6 +102,24 @@ def seqtosub(seq1: str, seq2: str) -> bool:
             if seq1[i] != seq2[i]:
                 result += 1
     return result == 1
+
+
+def find_mutation_position(seq1: str, seq2: str) -> int:
+    """Find the the position of seq2, where there is a mutation.
+    
+    >>> find_mutation_position('ATGC', 'AATGC')
+    2
+    >>> find_mutation_position('ATATAT', 'ATATT')
+    5
+    >>> find_mutation_position('ATGC', 'ATGG')
+    4
+    """
+
+    i = 0
+    while i < len(seq1) and i < len(seq2) and seq1[i] == seq2[i]:
+        i += 1
+    
+    return i + 1
 
 
 if __name__ == '__main__':

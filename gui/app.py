@@ -41,3 +41,9 @@ class MutationSim(tk.Tk):
 
     def go_to_start(self):
         self.switch_frame(StartPage)
+
+    def switch_entry_text(self, entry_box, new_text):
+        entry_box.config(state="normal")
+        entry_box.delete("1.0", tk.END)
+        entry_box.insert("1.0", new_text)
+        entry_box.config(state="disabled")

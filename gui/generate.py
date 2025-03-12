@@ -88,14 +88,14 @@ class Generate(tk.Frame):
 
         self.canvas.create_text(
             18.0,
-            94.0,
+            85.0,
             anchor="nw",
             text=generate_text,
             fill="#0B2F59",
             font=("Inter", 16 * -1)
         )
 
-    def generate_random_sequence(self) -> str:
+    def generate_random_sequence(self):
         """Generate a random sequence of n length."""
         nucleotides = ["A", "T", "G", "C"]
         length = self.length_entry.get()

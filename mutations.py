@@ -1,4 +1,5 @@
 import random
+from data import *
 
 Nucleotides = ['A', 'T', 'G', 'C']
 
@@ -88,7 +89,7 @@ def seqtodel(seq1: str, seq2: str) -> bool:
 
 
 def seqtosub(seq1: str, seq2: str) -> bool:
-    """Return True if seq2 has a single mucleotide substitution mutation of seq1.
+    """Return True if seq2 has a single nucleotide substitution mutation of seq1.
     
     >>> seqtosub('ATTGC', 'ATCGC')
     True
@@ -120,6 +121,45 @@ def find_mutation_position(seq1: str, seq2: str) -> int:
         i += 1
     
     return i + 1
+
+
+def translate(seq: str) -> bool:
+    """Return the translated nucleotide sequence into amino acid.
+    
+    >>> translate("TTTCTT")
+    'FL'
+    >>> translate("TTTTCTTAGCAA")
+    'FS'
+    """
+    result = ""
+    seq = seq.replace("U", "T")
+
+    n = 3
+    seq = [seq[i:i+n] for i in range(0, len(seq), n)]
+
+    for codon in seq:
+        amino_acid = CODONS[codon]
+        if amino_acid == "*":
+            return result
+        result += amino_acid
+
+    return result
+
+
+def is_synonymous(seq1: str, seq2: str) -> bool:
+    """Return True if the mutation is synonymous.
+
+    >>> is_synonymous("TTTCTT", "TTCCTC")
+    True
+    >>> is_synonymous("TTTCTT", "TTACTT")
+    False
+    """
+    if seqtoinsert(seq1, seq1) > -1 or seqtodel(seq1, seq2) or seqtosub(seq1, seq2):
+        seq1 = translate(seq1)
+        seq2 = translate(seq2)
+
+        return seq1 == seq2
+    return False
 
 
 if __name__ == '__main__':

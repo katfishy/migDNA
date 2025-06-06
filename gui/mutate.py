@@ -108,9 +108,6 @@ class Mutate(tk.Frame):
             height=197.0
         )
     
-    def show(self):
-        self.label.config(text = self.clicked.get())
-    
     def mutate_sequence(self):
         """Mutates the given sequence based on user selection
         for mutation type."""
